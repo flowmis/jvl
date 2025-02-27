@@ -218,7 +218,7 @@
     <button id="evaluate-voelkerball">Ergebnisse Völkerball</button>
   </div>
   <div id="voelkerball-stats-container" class="result-container"></div> <!-- Hier werden die Völkerball-Statistiken angezeigt -->
-  <script>
+<script>
 const volleyballMatches = [
 //Gruppenphase der Gruppe A
 { field: "Volleyball Halle 2 (Gruppe A)", time: "08:33", teams: ["A) Erdorgane", "A) Pritch Perfect"], score: [0, 0], referee: "Simon & Hr. Krieg" },
@@ -311,61 +311,7 @@ const voelkerballMatches = [
 { field: "Völkerball Halle 4", time: "12:20", teams: ["Gewinner Halbfinale 1", "Gewinner Halbfinale 2"], score: [0, 0], referee: "" },
 { field: "Völkerball Halle 1", time: "12:20", teams: ["Verlierer Halbfinale 1", "Verlierer Halbfinale 2"], score: [0, 0], referee: "" }
 ];
-
-// Volleyball gemeldete Teams:
-// Gruppe A
-// - [ ] Erdorgane (SG 12/1)
-// - [ ] Pritch Perfect (SG 12/1)
-// - [ ] Gegen,Gegen,Gegen (SG 11/1)
-// - [ ] Volleyball Divas (VABO 1)
-// - [ ] Nika (BTG 11)
-// Gruppe B
-// - [ ] Lehrer
-// - [ ] Pink Panter (AV 1)
-// - [ ] Volleyball EG 13 (EG 13)
-// - [ ] Vinzo (BTG11)
-// - [ ] Blockbuster (BTG/EG 12)
-
-// 1. Gruppenphase alle gegen alle (8min Spiel 2min Wechselzeit) Start 8:50? -> Ende: 10:30
-// 2. Viertelfinale dann Halbfinale und dann Finale?
-
-// Völkerball gemeldete Teams: 6 Gruppen mit je 4 Teams -> 24 Teams -> Gruppenphase: Jeder gegen Jeden (Pro Gruppe 6 Spiele auf 2 Feldern -> 6*6/2 = 16 Runden je 8min Spiel +2min Wechselzeit -> 160min -> 2h40 -> Beginn auf 8:30 Uhr gelegt. -> Letztes Spiel: 11:10 Uhr -> Erstplatzierte und Zweitplatzierte spielen Überkreuz -> Gewinner davon ziehen mit den zwei besten Verlieren ins Viertelfinale ein -> Viertelfinalgewinner spielen das Halbfinale und die Gewinner dann das Finale
-// - [ ] A) Franklin OG‘s (SG 12/2)
-// - [ ] A) Intim im Team (2 BFH2)
-// - [ ] A) Kahos (1BKEH1)
-// - [ ] A) Lehrerteam
-// - [ ] B) Wer macht Para? (SG 12/2)
-// - [ ] B) Fc Biercelona (1BKEH1) //Abgemeldet bei Pfister
-// - [ ] B) Feld 2 (SO1)
-// - [ ] B) Black Panter (AV 1)
-// - [ ] C) Die Bitches (EG 11)
-// - [ ] C) Freud am Sieg (SG 13/2)
-// - [ ] C) Buch & Run (BTG 13)
-// - [ ] C) Werf du doch! (SG11/1)
-// - [ ] D) Schnelle Schnecken (2 BFH2)
-// - [ ] D) Dr. Große Minions (AV4)
-// - [ ] D) Die Favoriten (SG 11/2)
-// - [ ] D) SG 13_1 (SG 13/1)
-// - [ ] E) DREIFACHTREFFER (VABO 1)
-// - [ ] E) Abstürz (AV 2)
-// - [ ] E) Die Rum-Hocker (SG 11/2)
-// - [ ] E) Völkerball 13 (EG 13)
-// - [ ] F) Silberschweif (AV 2)
-// - [ ] F) Banane & Diebe (SO 2)
-// - [ ] F) Gen Z (AV 3)
-// - [ ] F) Nein zu AfD (AV 3)
-
-// ToDo:
-// - Turnierplan drucken A3 und Link zum Turnierplan als QR Code ausdrucken A5 -> etwas zum befestigen (Tesa,...)
-// - Github als Alternative
-// - Erklärung zur Gruppenphase etc. in A4 ausdrucken (Miriam Lutz)
-// - Turnierplan so abändern, dass Punkte in Spalte 1 ist (errechnet aus Unentschieden +1, Sieg +3), in Spalte 2 die Punktedifferenz in Spalte 3 die Anzahl der gespielten Spiele -> Ergebnisse nach Gruppen sortiert anzeigen lassen
-// - Ansage: Hinweis zu Anmeldung der Teams (einer soll anmelden kommen wenn das Team vollständig spielberei vor Ort ist) auf Funktion Onlineturnierplan + wo welches Feld ist + Erste Spielpaarungen mit Schiris + Teams für Folgespiel warmmachen/bereithalten und wer zu spät kommt erhält Punktabzug?
-// - Musikbox ist geladen?
-// - Schiris auf die Zeit achten und "fehlende Zeit" selbst wieder reinholen. Auf den Turnierplan achten - Aktualisieren (bitte nicht übertreiben mit dem aktualisieren!)
-// - Zettel für Ergebnisse der abgeholt wird von Läuferteams -> es dauert etwas bis die Ergebnisse eingetragen sind und euch zugänglich gemacht wurde!
-    
-function calculateVolleyballStats(matches) {
+  function calculateVolleyballStats(matches) {
   const stats = {};
 
   matches.forEach(match => {
@@ -810,3 +756,5 @@ function updateTable(tbody, sortedTeams, isVolleyball) {
   </script>
 </body>
 </html>
+
+
