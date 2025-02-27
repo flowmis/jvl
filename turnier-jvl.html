@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Turnierplan – Volleyball & Völkerball</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 20px;
+      background: linear-gradient(135deg, #f9f9f9, #efefef);
+      color: #333;
+    }
+    .title-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .title-container img {
+      max-height: 60px;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+    .title-container h1 {
+      display: inline;
+      font-size: 2em;
+      vertical-align: middle;
+    }
+    h2, h3 {
+      text-align: center;
+      margin: 10px 0;
+      font-weight: 500;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin-bottom: 30px;
+    }
+    .field {
+      margin: 10px;
+      flex: 1;
+      min-width: 320px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .field h3 {
+      background: #4a90e2;
+      color: #fff;
+      margin: 0;
+      padding: 10px;
+      font-size: 1.1em;
+      text-align: center;
+    }
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: transparent; /* Hintergrund entfernt */
+      font-size: 0.95em;
+    }
+    th, td {
+      border-bottom: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    th {
+      background-color: #f7f7f7;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    th:hover {
+      background-color: #e0e0e0;
+    }
+    .match {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    .score-container {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 5px;
+    }
+    input[type="text"].team-name {
+      padding: 4px;
+      font-size: 0.9em;
+      width: 150px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: center;
+    }
+    input[type="text"].match-time {
+      padding: 4px;
+      font-size: 0.9em;
+      width: 70px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: center;
+    }
+    input[type="number"].score-input {
+      width: 40px;
+      padding: 4px;
+      font-size: 0.9em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .referee-input {
+      padding: 4px;
+      font-size: 0.9em;
+      width: 180px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .button-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+    button {
+      background: #4a90e2;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 5px;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    button:hover {
+      background: #3b7bc0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .result-container {
+      margin: 20px auto;
+      background: transparent; /* Hintergrund entfernt */
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 800px;
+    }
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    .result-table th, .result-table td {
+      border-bottom: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    .result-table th {
+      background-color: #f7f7f7;
+      font-weight: 500;
+    }
+    .leader-row {
+      background-color: #e0ffe0;
+    }
+    /* Farbliche Hervorhebung */
+    .past {
+      background-color: #ffebee; /* Rot */
+    }
+    .current {
+      background-color: #fff3e0; /* Orange */
+    }
+    .future {
+      background-color: #e8f5e9; /* Grün */
+    }
+    @media (max-width: 768px) {
+      .table-responsive {
+        overflow-x: auto;
+        display: block;
+      }
+      .match {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .score-container {
+        margin: 5px 0;
+      }
+      input[type="text"].team-name,
+      input[type="text"].match-time,
+      input[type="number"].score-input,
+      input[type="text"].referee-input {
+        width: 100%;
+        margin: 5px 0;
+      }
+      .field {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="title-container">
+    <img class="mk-desktop-logo dark-logo" title="Haus- und Landwirtschaftliche Schule" alt="Haus- und Landwirtschaftliche Schule" src="https://www.jvl-aalen.de/wp-content/uploads/2018/07/justus-von-liebig-schule-aalen-logo.png">
+    <h1>Turnierplan – Volleyball</h1>
+  </div>
+  <div class="container" id="volleyball-container"></div>
+  <div class="button-container">
+    <button id="evaluate-volleyball">Ergebnisse Volleyball</button>
+  </div>
+  <div id="volleyball-stats-container" class="result-container"></div> <!-- Hier werden die Volleyball-Statistiken angezeigt -->
+
+  <div class="title-container">
+    <img class="mk-desktop-logo dark-logo" title="Haus- und Landwirtschaftliche Schule" alt="Haus- und Landwirtschaftliche Schule" src="https://www.jvl-aalen.de/wp-content/uploads/2018/07/justus-von-liebig-schule-aalen-logo.png">
+    <h1>Turnierplan – Völkerball</h1>
+  </div>
+  <div class="container" id="voelkerball-container"></div>
+  <div class="button-container">
+    <button id="evaluate-voelkerball">Ergebnisse Völkerball</button>
+  </div>
+  <div id="voelkerball-stats-container" class="result-container"></div> <!-- Hier werden die Völkerball-Statistiken angezeigt -->
+
+  <script src="data.js"></script>
+  <script>
+function calculateVolleyballStats(matches) {
+  const stats = {};
+
+  matches.forEach(match => {
+    const [team1, team2] = match.teams;
+    const [score1, score2] = match.score;
+
+    if (!stats[team1]) {
+      stats[team1] = { games: 0, wins: 0, losses: 0, draws: 0, pointsFor: 0, pointsAgainst: 0, totalPoints: 0, pointsDifference: 0 };
+    }
+    if (!stats[team2]) {
+      stats[team2] = { games: 0, wins: 0, losses: 0, draws: 0, pointsFor: 0, pointsAgainst: 0, totalPoints: 0, pointsDifference: 0 };
+    }
+
+    stats[team1].games += 1;
+    stats[team2].games += 1;
+
+    stats[team1].pointsFor += score1;
+    stats[team1].pointsAgainst += score2;
+    stats[team2].pointsFor += score2;
+    stats[team2].pointsAgainst += score1;
+
+    if (score1 > score2) {
+      stats[team1].wins += 1;
+      stats[team1].totalPoints += 3;
+      stats[team2].losses += 1;
+    } else if (score1 < score2) {
+      stats[team2].wins += 1;
+      stats[team2].totalPoints += 3;
+      stats[team1].losses += 1;
+    } else {
+      stats[team1].draws += 1;
+      stats[team1].totalPoints += 1;
+      stats[team2].draws += 1;
+      stats[team2].totalPoints += 1;
+    }
+
+    stats[team1].pointsDifference = stats[team1].pointsFor - stats[team1].pointsAgainst;
+    stats[team2].pointsDifference = stats[team2].pointsFor - stats[team2].pointsAgainst;
+  });
+
+  return stats;
+}
+
+function calculateVoelkerballStats(matches) {
+  const stats = {};
+
+  matches.forEach(match => {
+    const [team1, team2] = match.teams;
+    const [score1, score2] = match.score;
+
+    // Initialisiere die Statistiken für jedes Team, falls noch nicht vorhanden
+    if (!stats[team1]) {
+      stats[team1] = { 
+        games: 0, 
+        wins: 0, 
+        losses: 0, 
+        draws: 0, 
+        pointsFor: 0,      // Punkte, die das Team erzielt hat
+        pointsAgainst: 0,  // Punkte, die das Team erhalten hat
+        totalPoints: 0,    // Gesamtpunkte (3 für Sieg, 1 für Unentschieden)
+        pointsDifference: 0 // Punktedifferenz (pointsFor - pointsAgainst)
+      };
+    }
+    if (!stats[team2]) {
+      stats[team2] = { 
+        games: 0, 
+        wins: 0, 
+        losses: 0, 
+        draws: 0, 
+        pointsFor: 0, 
+        pointsAgainst: 0, 
+        totalPoints: 0, 
+        pointsDifference: 0 
+      };
+    }
+
+    // Zähle die Spiele
+    stats[team1].games += 1;
+    stats[team2].games += 1;
+
+    // Füge Punkte hinzu
+    stats[team1].pointsFor += score1;       // Team1 hat score1 Punkte erzielt
+    stats[team1].pointsAgainst += score2;   // Team1 hat score2 Punkte erhalten
+    stats[team2].pointsFor += score2;       // Team2 hat score2 Punkte erzielt
+    stats[team2].pointsAgainst += score1;   // Team2 hat score1 Punkte erhalten
+
+    // Bestimme Sieger, Verlierer oder Unentschieden
+    if (score1 > score2) {
+      stats[team1].wins += 1;
+      stats[team1].totalPoints += 3; // 3 Punkte für den Sieg
+      stats[team2].losses += 1;
+    } else if (score1 < score2) {
+      stats[team2].wins += 1;
+      stats[team2].totalPoints += 3; // 3 Punkte für den Sieg
+      stats[team1].losses += 1;
+    } else {
+      stats[team1].draws += 1;
+      stats[team1].totalPoints += 1; // 1 Punkt für Unentschieden
+      stats[team2].draws += 1;
+      stats[team2].totalPoints += 1; // 1 Punkt für Unentschieden
+    }
+
+    // Berechne die Punktedifferenz
+    stats[team1].pointsDifference = stats[team1].pointsFor - stats[team1].pointsAgainst;
+    stats[team2].pointsDifference = stats[team2].pointsFor - stats[team2].pointsAgainst;
+  });
+
+  return stats;
+}
+
+function displayVolleyballStats(stats) {
+  const resultContainer = document.getElementById("volleyball-stats-container");
+  resultContainer.innerHTML = "<h2>Volleyball Statistiken</h2>";
+
+  const table = document.createElement("table");
+  table.className = "result-table";
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th data-sort="totalPoints">Punkte</th>
+        <th data-sort="wins">Siege</th>
+        <th data-sort="pointsDifference">Punkte-Differenz</th>
+        <th data-sort="games">Spiele</th>
+        <th data-sort="team">Team</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  `;
+
+  const tbody = table.querySelector("tbody");
+
+  let sortedTeams = Object.entries(stats).sort((a, b) => b[1].totalPoints - a[1].totalPoints);
+
+  sortedTeams.forEach(([team, data]) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${data.totalPoints}</td>
+      <td>${data.wins}</td>
+      <td>${data.pointsDifference}</td>
+      <td>${data.games}</td>
+      <td>${team}</td>
+    `;
+    tbody.appendChild(row);
+  });
+
+  resultContainer.appendChild(table);
+
+  table.querySelectorAll("th").forEach(header => {
+    header.addEventListener("click", () => {
+      const sortKey = header.dataset.sort;
+      sortedTeams = sortTable(sortedTeams, sortKey);
+      updateTable(tbody, sortedTeams);
+    });
+  });
+}
+
+function displayVoelkerballStats(stats) {
+  const resultContainer = document.getElementById("voelkerball-stats-container");
+  resultContainer.innerHTML = "<h2>Völkerball Statistiken</h2>";
+
+  const table = document.createElement("table");
+  table.className = "result-table";
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th data-sort="totalPoints">Punkte</th>
+        <th data-sort="wins">Siege</th>
+        <th data-sort="pointsDifference">Punkte-Differenz</th>
+        <th data-sort="games">Spiele</th>
+        <th data-sort="team">Team</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  `;
+
+  const tbody = table.querySelector("tbody");
+
+  // Sortiere die Teams nach Punkten (absteigend)
+  let sortedTeams = Object.entries(stats).sort((a, b) => b[1].totalPoints - a[1].totalPoints);
+
+  // Füge die Teams in die Tabelle ein
+  sortedTeams.forEach(([team, data]) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${data.totalPoints}</td>
+      <td>${data.wins}</td>
+      <td>${data.pointsDifference}</td>
+      <td>${data.games}</td>
+      <td>${team}</td>
+    `;
+    tbody.appendChild(row);
+  });
+
+  resultContainer.appendChild(table);
+
+  // Event-Listener für die Sortierung
+  table.querySelectorAll("th").forEach(header => {
+    header.addEventListener("click", () => {
+      const sortKey = header.dataset.sort;
+      sortedTeams = sortTable(sortedTeams, sortKey);
+      updateTable(tbody, sortedTeams);
+    });
+  });
+}
+    // Funktion zum Sortieren der Tabelle
+    function sortTable(teams, sortKey) {
+      return teams.sort((a, b) => {
+        const valueA = a[1][sortKey] || a[0]; // Fallback auf Teamnamen, falls sortKey nicht existiert
+        const valueB = b[1][sortKey] || b[0];
+        if (typeof valueA === "number" && typeof valueB === "number") {
+          return valueB - valueA; // Absteigend für Zahlen
+        } else {
+          return String(valueA).localeCompare(String(valueB)); // Alphabetisch für Strings
+        }
+      });
+    }
+
+    // Funktion zum Aktualisieren der Tabelle
+function updateTable(tbody, sortedTeams, isVolleyball) {
+  tbody.innerHTML = ""; // Leere die Tabelle
+  sortedTeams.forEach(([team, data]) => {
+    const row = document.createElement("tr");
+    if (isVolleyball) {
+      // Volleyball-Tabelle
+      const pointsDifference = data.pointsFor - data.pointsAgainst;
+      const pointsRatio = (data.pointsAgainst === 0) ? data.pointsFor : (data.pointsFor / data.pointsAgainst).toFixed(2);
+      row.innerHTML = `
+        <td>${data.totalPoints}</td>
+        <td>${data.wins}</td>
+        <td>${pointsDifference}</td>
+        <td>${data.games}</td>
+        <td>${team}</td>
+      `;
+    } else {
+      // Völkerball-Tabelle
+      row.innerHTML = `
+        <td>${data.totalPoints}</td>
+        <td>${data.wins}</td>
+        <td>${data.pointsDifference}</td>
+        <td>${data.games}</td>
+        <td>${team}</td>
+      `;
+    }
+    tbody.appendChild(row);
+  });
+}
+    // Event-Listener für die Buttons
+    document.getElementById("evaluate-volleyball").addEventListener("click", () => {
+      const stats = calculateVolleyballStats(volleyballMatches);
+      displayVolleyballStats(stats);
+    });
+
+    document.getElementById("evaluate-voelkerball").addEventListener("click", () => {
+      const stats = calculateVoelkerballStats(voelkerballMatches);
+      displayVoelkerballStats(stats);
+    });
+
+    // Funktion zur Generierung der Tabellen
+    function generateTables(matches, containerId) {
+      const fields = {};
+      matches.forEach((m, idx) => {
+        if (!fields[m.field]) {
+          fields[m.field] = [];
+        }
+        fields[m.field].push({ ...m, matchIndex: idx });
+      });
+
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+
+      for (const fieldName in fields) {
+        const fieldDiv = document.createElement("div");
+        fieldDiv.className = "field";
+
+        const heading = document.createElement("h3");
+        heading.innerText = fieldName;
+        fieldDiv.appendChild(heading);
+
+        const tableWrap = document.createElement("div");
+        tableWrap.className = "table-responsive";
+        fieldDiv.appendChild(tableWrap);
+
+        const table = document.createElement("table");
+        table.innerHTML = `
+          <thead>
+            <tr>
+              <th>Zeit</th>
+              <th>Spiele</th>
+              <th>Schiedsrichter</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        `;
+        const tbody = table.querySelector("tbody");
+
+        fields[fieldName].forEach(matchObj => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>
+              <input type="text" class="match-time" data-match-index="${matchObj.matchIndex}" value="${matchObj.time}" />
+            </td>
+            <td>
+              <div class="match">
+                <input type="text" class="team-name" data-match-index="${matchObj.matchIndex}" data-team-index="0" value="${matchObj.teams[0]}" />
+                <div class="score-container">
+                  <input type="number" class="score-input" data-match-index="${matchObj.matchIndex}" data-team-index="0" min="0" value="${matchObj.score[0]}" />
+                  <span>:</span>
+                  <input type="number" class="score-input" data-match-index="${matchObj.matchIndex}" data-team-index="1" min="0" value="${matchObj.score[1]}" />
+                </div>
+                <input type="text" class="team-name" data-match-index="${matchObj.matchIndex}" data-team-index="1" value="${matchObj.teams[1]}" />
+              </div>
+            </td>
+            <td>
+              <input type="text" class="referee-input" data-match-index="${matchObj.matchIndex}" value="${matchObj.referee}" />
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+
+        tableWrap.appendChild(table);
+        container.appendChild(fieldDiv);
+      }
+    }
+
+    // Funktion zur farblichen Hervorhebung
+    function highlightMatches(matches, containerId) {
+      const now = new Date();
+      const container = document.getElementById(containerId);
+      const rows = container.querySelectorAll("tr");
+
+      rows.forEach((row, index) => {
+        const matchTimeInput = row.querySelector(".match-time");
+        if (!matchTimeInput) return;
+
+        const matchTime = matchTimeInput.value;
+        const [hours, minutes] = matchTime.split(":");
+        const matchDate = new Date();
+        matchDate.setHours(hours, minutes, 0, 0);
+
+        const timeDifference = (now - matchDate) / (1000 * 60); // Differenz in Minuten
+
+        row.classList.remove("past", "current", "future");
+
+        if (timeDifference > 10) {
+          row.classList.add("past"); // Spiel liegt mehr als 10 Minuten zurück (rot)
+        } else if (timeDifference >= 0 && timeDifference <= 10) {
+          row.classList.add("current"); // Spiel liegt weniger als 10 Minuten zurück (orange)
+        } else {
+          row.classList.add("future"); // Spiel liegt in der Zukunft (grün)
+        }
+      });
+    }
+
+    // Event-Listener für Änderungen
+    function addEventListeners(containerId, matchesArrayName) {
+      const container = document.getElementById(containerId);
+
+      container.querySelectorAll(".match-time").forEach(inp => {
+        inp.addEventListener("change", (e) => {
+          const idx = parseInt(e.target.dataset.matchIndex, 10);
+          const newTime = e.target.value;
+          if (matchesArrayName === "volleyball") {
+            volleyballMatches[idx].time = newTime;
+          } else {
+            voelkerballMatches[idx].time = newTime;
+          }
+        });
+      });
+
+      container.querySelectorAll(".team-name").forEach(inp => {
+        inp.addEventListener("change", (e) => {
+          const idx = parseInt(e.target.dataset.matchIndex, 10);
+          const teamIdx = parseInt(e.target.dataset.teamIndex, 10);
+          const newName = e.target.value.trim();
+          if (!newName) {
+            alert("Teamname darf nicht leer sein!");
+            e.target.value = matchesArrayName === "volleyball" ? volleyballMatches[idx].teams[teamIdx] : voelkerballMatches[idx].teams[teamIdx];
+            return;
+          }
+          if (matchesArrayName === "volleyball") {
+            volleyballMatches[idx].teams[teamIdx] = newName;
+          } else {
+            voelkerballMatches[idx].teams[teamIdx] = newName;
+          }
+        });
+      });
+
+      container.querySelectorAll(".score-input").forEach(inp => {
+        inp.addEventListener("change", (e) => {
+          const idx = parseInt(e.target.dataset.matchIndex, 10);
+          const teamIdx = parseInt(e.target.dataset.teamIndex, 10);
+          const newValue = parseInt(e.target.value, 10);
+          if (isNaN(newValue)) {
+            alert("Punkte müssen eine Zahl sein!");
+            e.target.value = matchesArrayName === "volleyball" ? volleyballMatches[idx].score[teamIdx] : voelkerballMatches[idx].score[teamIdx];
+            return;
+          }
+          if (newValue < 0) {
+            alert("Punkte dürfen nicht negativ sein!");
+            e.target.value = matchesArrayName === "volleyball" ? volleyballMatches[idx].score[teamIdx] : voelkerballMatches[idx].score[teamIdx];
+            return;
+          }
+          if (matchesArrayName === "volleyball") {
+            volleyballMatches[idx].score[teamIdx] = newValue;
+          } else {
+            voelkerballMatches[idx].score[teamIdx] = newValue;
+          }
+        });
+      });
+
+      container.querySelectorAll(".referee-input").forEach(inp => {
+        inp.addEventListener("change", (e) => {
+          const idx = parseInt(e.target.dataset.matchIndex, 10);
+          const newReferee = e.target.value;
+          if (matchesArrayName === "volleyball") {
+            volleyballMatches[idx].referee = newReferee;
+          } else {
+            voelkerballMatches[idx].referee = newReferee;
+          }
+        });
+      });
+    }
+
+    // Initialisierung
+    document.addEventListener("DOMContentLoaded", () => {
+      generateTables(volleyballMatches, "volleyball-container");
+      generateTables(voelkerballMatches, "voelkerball-container");
+
+      addEventListeners("volleyball-container", "volleyball");
+      addEventListeners("voelkerball-container", "voelkerball");
+
+      // Initiale Hervorhebung
+      highlightMatches(volleyballMatches, "volleyball-container");
+      highlightMatches(voelkerballMatches, "voelkerball-container");
+
+      // Aktualisiere alle 60 Sekunden
+      setInterval(() => {
+        highlightMatches(volleyballMatches, "volleyball-container");
+        highlightMatches(voelkerballMatches, "voelkerball-container");
+      }, 60000);
+    });
+  </script>
+</body>
+</html>
